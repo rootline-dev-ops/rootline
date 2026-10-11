@@ -1,0 +1,86 @@
+name: "Rootline: CI failure root-cause analysis"
+description: "Analyse a failed GitHub Actions run with Claude and post the root cause and a suggested fix as a PR comment."
+author: "Hasan Çelik"
+branding:
+  icon: "search"
+  color: "orange"
+
+inputs:
+  anthropic-api-key:
+    description: "Anthropic API key. Store it as a repository secret. If empty, Rootline posts deterministic findings only."
+    required: false
+    default: ""
+  github-token:
+    description: "Token used to read the run/logs/code and to comment. Needs actions:read, contents:read, pull-requests:write."
+    required: false
+    default: ${{ github.token }}
+  run-id:
+    description: "Workflow run to analyse. Defaults to the run that triggered this workflow_run event."
+    required: false
+    default: ${{ github.event.workflow_run.id }}
+  model:
+    description: "Claude model id."
+    required: false
+    default: "claude-sonnet-5-5"
+  escalation-model:
+    description: "Optional stronger model to re-run with when the first answer has low confidence (e.g. claude-opus-5-5)."
+    required: false
+    default: ""
+  max-turns:
+    description: "Maximum agent turns (each turn may call several tools)."
+    required: false
+    default: "8"
+  log-budget-tokens:
+    description: "Approximate token budget for the pre-filtered log excerpt."
+    required: false
+    default: "12000"
+  effort:
+    description: "Optional effort level passed to the model (low, medium, high, xhigh, max). Empty = model default."
+    required: false
+    default: ""
+  dry-run:
+    description: "If 'true', print the comment and write the job summary but do not post on the PR."
+    required: false
+    default: "false"
+  python-version:
+    description: "Python used to run Rootline."
+    required: false
+    default: "3.12"
+
+outputs:
+  category:
+    description: "regression | flaky | config_env | dependency | infra | unknown (empty if no AI analysis)"
+    value: ${{ steps.rootline.outputs.category }}
+  confidence:
+    description: "high | medium | low (empty if no AI analysis)"
+    value: ${{ steps.rootline.outputs.confidence }}
+  comment-url:
+    description: "URL of the created/updated PR comment, if any"
+    value: ${{ steps.rootline.outputs.comment-url }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install Rootline
+      shell: bash
+      run: python -m pip install --quiet --disable-pip-version-check "${{ github.action_path }}"
+    - name: Analyse failed run
+      id: rootline
+      shell: bash
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        ROOTLINE_RUN_ID: ${{ inputs.run-id }}
+        ROOTLINE_MODEL: ${{ inputs.model }}
+        ROOTLINE_ESCALATION_MODEL: ${{ inputs.escalation-model }}
+        ROOTLINE_MAX_TURNS: ${{ inputs.max-turns }}
+        ROOTLINE_LOG_BUDGET_TOKENS: ${{ inputs.log-budget-tokens }}
+        ROOTLINE_EFFORT: ${{ inputs.effort }}
+        DRY_RUN: ${{ inputs.dry-run }}
+      run: |
+        args=(analyze --repo "$GITHUB_REPOSITORY" --run-id "$ROOTLINE_RUN_ID")
+        if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+        rootline "${args[@]}"
