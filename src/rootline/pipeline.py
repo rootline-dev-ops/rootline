@@ -48,6 +48,22 @@ def make_client() -> Any:
     return anthropic.Anthropic(**client_kwargs())
 
 
+def describe_error(e: BaseException, limit: int = 300) -> str:
+    """Short, human-readable description of an API/network error for the report."""
+    msg = ""
+    body = getattr(e, "body", None)
+    if isinstance(body, dict):
+        err = body.get("error")
+        if isinstance(err, dict) and isinstance(err.get("message"), str):
+            msg = err["message"]
+    if not msg:
+        msg = str(e)
+    status = getattr(e, "status_code", None)
+    prefix = f"{type(e).__name__} ({status})" if isinstance(status, int) else type(e).__name__
+    text = " ".join(f"{prefix}: {msg}".split())
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
 def _build_report(
     pre: PrefilterResult,
     ctx: ContextProvider,
@@ -76,7 +92,7 @@ def _build_report(
         report.tool_calls = toolbox.calls
         return report
     except Exception as e:  # API/network errors: degrade to deterministic report
-        report.error = f"{type(e).__name__}: {str(e)[:200]}"
+        report.error = describe_error(e)
         report.tool_calls = toolbox.calls
         return report
     report.analysis = outcome.analysis
@@ -170,4 +186,7 @@ def run_github(
         report.context["other_failed_jobs"] = other
     if failed_step:
         report.context["failed_step_from_api"] = failed_step
+        # The Jobs API name is what users see in the Actions UI; the log group header is the
+        # command line (e.g. "Run pytest -v"), so prefer the API name in the report.
+        report.failing_step = failed_step
     return report, ctx

@@ -1,4 +1,5 @@
 import json
+from typing import ClassVar
 
 from rootline import cli
 from rootline.github import GitHub
@@ -168,3 +169,36 @@ def test_make_client_sends_workspace_header(monkeypatch):
     monkeypatch.setenv("ANTHROPIC_WORKSPACE_ID", "wrkspc_abc")
     client = make_client()
     assert client.default_headers.get("anthropic-workspace-id") == "wrkspc_abc"
+
+
+def test_describe_error_uses_api_message():
+    from rootline.pipeline import describe_error
+
+    class BadRequestError(Exception):
+        status_code = 400
+        body: ClassVar[dict] = {
+            "type": "error",
+            "error": {"type": "invalid_request_error", "message": "bad header"},
+        }
+
+    assert describe_error(BadRequestError("Error code: 400 - {...}")) == (
+        "BadRequestError (400): bad header"
+    )
+    long = describe_error(RuntimeError("x" * 1000), limit=50)
+    assert len(long) == 50 and long.endswith("…")
+
+
+def test_failing_step_prefers_jobs_api_name(monkeypatch, capsys, fixture_text):
+    routes = _github_routes(fixture_text("gha_pytest.log"))
+    jobs = routes[("GET", f"/repos/{REPO}/actions/runs/42/jobs")].json()
+    jobs["jobs"][1]["steps"] = [{"name": "Run tests", "conclusion": "failure"}]
+    session = FakeSession(routes)
+    monkeypatch.setattr(
+        GitHub,
+        "from_env",
+        classmethod(lambda cls, repo, token=None: GitHub(token="t", repo=repo, session=session)),
+    )
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GITHUB_STEP_SUMMARY", raising=False)
+    assert cli.main(["analyze", "--repo", REPO, "--run-id", "42", "--dry-run"]) == 0
+    assert "Failing step: `Run tests`" in capsys.readouterr().out
