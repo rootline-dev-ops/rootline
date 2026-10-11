@@ -149,3 +149,22 @@ def test_successful_run_is_skipped(monkeypatch, capsys, fixture_text):
     )
     assert cli.main(["analyze", "--repo", REPO, "--run-id", "42"]) == 0
     assert "nothing to analyse" in capsys.readouterr().out
+
+
+def test_client_kwargs_workspace_header():
+    from rootline.pipeline import client_kwargs
+
+    assert client_kwargs({}) == {}
+    assert client_kwargs({"ANTHROPIC_WORKSPACE_ID": "  "}) == {}
+    assert client_kwargs({"ANTHROPIC_WORKSPACE_ID": "wrkspc_abc"}) == {
+        "default_headers": {"anthropic-workspace-id": "wrkspc_abc"}
+    }
+
+
+def test_make_client_sends_workspace_header(monkeypatch):
+    from rootline.pipeline import make_client
+
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-test-0000000000000000000000")
+    monkeypatch.setenv("ANTHROPIC_WORKSPACE_ID", "wrkspc_abc")
+    client = make_client()
+    assert client.default_headers.get("anthropic-workspace-id") == "wrkspc_abc"

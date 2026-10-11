@@ -87,6 +87,7 @@ jobs:
       - uses: rootline-dev-ops/rootline@v0   # placeholder: pin to a release tag or commit SHA
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # anthropic-workspace-id: ${{ secrets.ANTHROPIC_WORKSPACE_ID }}  # only for multi-workspace keys
           # model: claude-sonnet-5-5
           # escalation-model: claude-opus-5-5
 ```
@@ -121,6 +122,7 @@ rootline render --report report.json
 | Action input | Env var / CLI flag | Default | Meaning |
 |---|---|---|---|
 | `anthropic-api-key` | `ANTHROPIC_API_KEY` | – | Without it, deterministic findings only |
+| `anthropic-workspace-id` | `ANTHROPIC_WORKSPACE_ID` | – | `wrkspc_…` ID; only needed for keys not scoped to one workspace |
 | `github-token` | `GITHUB_TOKEN` | `${{ github.token }}` | Read run/logs/code, write the comment |
 | `run-id` | `ROOTLINE_RUN_ID` / `--run-id` | triggering run | Run to analyse |
 | `model` | `ROOTLINE_MODEL` / `--model` | `claude-sonnet-5-5` | Claude model id |

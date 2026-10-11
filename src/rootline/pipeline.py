@@ -29,10 +29,23 @@ class Options:
     agent: AgentConfig | None = None
 
 
+def client_kwargs(env: dict[str, str] | None = None) -> dict[str, Any]:
+    """Extra Anthropic client arguments derived from the environment.
+
+    Personal / service-account API keys that are not scoped to a single workspace must send
+    the ``anthropic-workspace-id`` header on every request; set ``ANTHROPIC_WORKSPACE_ID``.
+    """
+    e = os.environ if env is None else env
+    workspace = (e.get("ANTHROPIC_WORKSPACE_ID") or "").strip()
+    if workspace:
+        return {"default_headers": {"anthropic-workspace-id": workspace}}
+    return {}
+
+
 def make_client() -> Any:
     import anthropic  # imported lazily so prefilter-only use needs no API key
 
-    return anthropic.Anthropic()
+    return anthropic.Anthropic(**client_kwargs())
 
 
 def _build_report(

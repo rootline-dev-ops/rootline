@@ -10,6 +10,10 @@ inputs:
     description: "Anthropic API key. Store it as a repository secret. If empty, Rootline posts deterministic findings only."
     required: false
     default: ""
+  anthropic-workspace-id:
+    description: "Anthropic workspace ID (wrkspc_...). Required only for API keys that are not scoped to a single workspace."
+    required: false
+    default: ""
   github-token:
     description: "Token used to read the run/logs/code and to comment. Needs actions:read, contents:read, pull-requests:write."
     required: false
@@ -72,6 +76,7 @@ runs:
       shell: bash
       env:
         ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        ANTHROPIC_WORKSPACE_ID: ${{ inputs.anthropic-workspace-id }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         ROOTLINE_RUN_ID: ${{ inputs.run-id }}
         ROOTLINE_MODEL: ${{ inputs.model }}

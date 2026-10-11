@@ -20,5 +20,6 @@ jobs:
       - uses: rootline-dev-ops/rootline@v0   # placeholder: pin to a release tag or commit SHA
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # anthropic-workspace-id: ${{ secrets.ANTHROPIC_WORKSPACE_ID }}  # only for multi-workspace keys
           # model: claude-sonnet-5-5
           # escalation-model: claude-opus-5-5
