@@ -1,0 +1,36 @@
+Failing step: Run pytest -q --maxfail=5
+Detected tooling: pytest
+Structured failures (2):
+  - [pytest] tests/test_format.py::test_format_total_de_locale — AssertionError: assert '€1,234.50' == '1.234,50\xa0€' (line 107)
+  - [pytest] tests/test_format.py::test_format_total_tr_locale — AssertionError: assert 'TRY99.90' == '₺99,90' (line 108)
+GitHub error annotations:
+  - Process completed with exit code 1.
+
+Log excerpt (line numbers refer to the full normalised log):
+      … [76 lines omitted]
+    81| DEBUG config loaded: {'stripe_api_key': '[REDACTED:stripe_key]', 'region': 'eu-central-1'}
+    82| ....F..F.                                                     [100%]
+    83| =================================== FAILURES ===================================
+    84| __________________________ test_format_total_de_locale __________________________
+    86|     def test_format_total_de_locale():
+    87|         invoice = make_invoice(lines=[("Consulting", Decimal("1234.5"))], currency="EUR", locale="de_DE")
+    88| >       assert format_total(invoice) == "1.234,50\xa0€"
+    89| E       AssertionError: assert '€1,234.50' == '1.234,50\xa0€'
+    90| E
+    91| E         - 1.234,50 €
+    92| E         + €1,234.50
+    94| tests/test_format.py:18: AssertionError
+    95| _________________________ test_format_total_tr_locale __________________________
+    97|     def test_format_total_tr_locale():
+    98|         invoice = make_invoice(lines=[("Danışmanlık", Decimal("99.9"))], currency="TRY", locale="tr_TR")
+    99| >       assert format_total(invoice) == "₺99,90"
+   100| E       AssertionError: assert 'TRY99.90' == '₺99,90'
+   101| E
+   102| E         - ₺99,90
+   103| E         + TRY99.90
+   105| tests/test_format.py:25: AssertionError
+   106| =========================== short test summary info ============================
+   107| FAILED tests/test_format.py::test_format_total_de_locale - AssertionError: assert '€1,234.50' == '1.234,50\xa0€'
+   108| FAILED tests/test_format.py::test_format_total_tr_locale - AssertionError: assert 'TRY99.90' == '₺99,90'
+   109| ========================= 2 failed, 7 passed in 0.41s ==========================
+   110| ##[error]Process completed with exit code 1.
