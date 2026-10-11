@@ -107,7 +107,7 @@ def render_comment(report: RunReport, key: str) -> str:
             out.append("")
         if report.error:
             out.append(
-                f"_AI analysis unavailable: {neutralize(report.error)}. Showing deterministic findings only._"
+                f"_AI analysis unavailable: {neutralize(report.error).rstrip('.')}. Showing deterministic findings only._"
             )
         else:
             out.append("_Deterministic findings only (AI analysis not run)._")
