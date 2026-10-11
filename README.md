@@ -84,7 +84,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     steps:
-      - uses: rootline-dev/rootline@v0   # placeholder: pin to a release tag or commit SHA
+      - uses: rootline-dev-ops/rootline@v0   # placeholder: pin to a release tag or commit SHA
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           # model: claude-sonnet-5-5
@@ -96,7 +96,7 @@ jobs:
 ### CLI
 
 ```bash
-pip install git+https://github.com/rootline-dev/rootline   # placeholder URL
+pip install git+https://github.com/rootline-dev-ops/rootline   # placeholder URL
 
 # See exactly what would be sent to the model (no API key needed)
 rootline prefilter --log-file ci.log

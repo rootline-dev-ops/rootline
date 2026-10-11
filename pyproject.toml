@@ -32,7 +32,7 @@ rootline = "rootline.cli:main"
 
 [project.urls]
 Homepage = "https://hasancelik.com.tr"
-Source = "https://github.com/rootline-dev/rootline"
+Source = "https://github.com/rootline-dev-ops/rootline"
 
 [tool.setuptools.packages.find]
 where = ["src"]
