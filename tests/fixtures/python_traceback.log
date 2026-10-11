@@ -1,0 +1,12 @@
+Run python scripts/generate_openapi.py --out openapi.json
+Traceback (most recent call last):
+  File "/home/runner/work/billing/billing/scripts/generate_openapi.py", line 7, in <module>
+    from billing.api import create_app
+  File "/home/runner/work/billing/billing/billing/api/__init__.py", line 3, in <module>
+    from .routes import invoices, customers
+  File "/home/runner/work/billing/billing/billing/api/routes/invoices.py", line 12, in <module>
+    from billing.pdf import render_invoice_pdf
+  File "/home/runner/work/billing/billing/billing/pdf.py", line 1, in <module>
+    import weasyprint
+ModuleNotFoundError: No module named 'weasyprint'
+Error: Process completed with exit code 1.

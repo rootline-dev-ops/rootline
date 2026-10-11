@@ -1,0 +1,33 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :app:compileKotlin
+> Task :app:compileJava NO-SOURCE
+> Task :app:classes
+> Task :app:compileTestKotlin
+> Task :app:testClasses
+
+> Task :app:test
+
+DateParserTest > parsesIsoWeekDates() FAILED
+    java.time.format.DateTimeParseException: Text '2026-W41-1' could not be parsed at index 4
+        at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2108)
+        at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:2010)
+        at java.base/java.time.LocalDate.parse(LocalDate.java:435)
+        at dev.acmelabs.timekit.DateParser.parse(DateParser.kt:23)
+        at dev.acmelabs.timekit.DateParserTest.parsesIsoWeekDates(DateParserTest.kt:31)
+
+14 tests completed, 1 failed
+
+> Task :app:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:test'.
+> There were failing tests. See the report at: file:///home/runner/work/timekit/timekit/app/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 48s
+5 actionable tasks: 5 executed
+Error: Process completed with exit code 1.

@@ -1,0 +1,59 @@
+﻿2026-10-09T13:42:07.1230000Z ##[group]Run actions/setup-node@v4
+2026-10-09T13:42:07.1630000Z with:
+2026-10-09T13:42:07.2400000Z   node-version: 20
+2026-10-09T13:42:07.3540000Z   cache: npm
+2026-10-09T13:42:07.5050000Z ##[endgroup]
+2026-10-09T13:42:07.6930000Z Found in cache @ /opt/hostedtoolcache/node/20.19.5/x64
+2026-10-09T13:42:07.9180000Z ##[group]Run npm ci
+2026-10-09T13:42:07.9210000Z npm ci
+2026-10-09T13:42:07.9610000Z shell: /usr/bin/bash -e {0}
+2026-10-09T13:42:08.0380000Z ##[endgroup]
+2026-10-09T13:42:08.1520000Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it.
+2026-10-09T13:42:08.3030000Z npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+2026-10-09T13:42:08.4910000Z 
+2026-10-09T13:42:08.7160000Z added 612 packages, and audited 613 packages in 9s
+2026-10-09T13:42:08.7190000Z 
+2026-10-09T13:42:08.7590000Z 98 packages are looking for funding
+2026-10-09T13:42:08.8360000Z   run `npm fund` for details
+2026-10-09T13:42:08.9500000Z 
+2026-10-09T13:42:09.1010000Z found 0 vulnerabilities
+2026-10-09T13:42:09.2890000Z ##[group]Run npm test -- --ci
+2026-10-09T13:42:09.5140000Z npm test -- --ci
+2026-10-09T13:42:09.5170000Z shell: /usr/bin/bash -e {0}
+2026-10-09T13:42:09.5570000Z ##[endgroup]
+2026-10-09T13:42:09.6340000Z 
+2026-10-09T13:42:09.7480000Z > shopfront@2.3.0 test
+2026-10-09T13:42:09.8990000Z > jest --ci
+2026-10-09T13:42:10.0870000Z 
+2026-10-09T13:42:10.3120000Z [0m[7m[1m[32m PASS [39m[22m[27m[0m src/cart/__tests__/cart.test.ts
+2026-10-09T13:42:10.3150000Z [0m[7m[1m[32m PASS [39m[22m[27m[0m src/utils/__tests__/slugify.test.ts
+2026-10-09T13:42:10.3550000Z [0m[7m[1m[31m FAIL [39m[22m[27m[0m src/billing/__tests__/invoice.test.ts
+2026-10-09T13:42:10.4320000Z   [1m● [22mformatTotal › formats EUR amounts with the customer locale
+2026-10-09T13:42:10.5460000Z 
+2026-10-09T13:42:10.6970000Z     [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+2026-10-09T13:42:10.8850000Z 
+2026-10-09T13:42:11.1100000Z     Expected: [32m"1.234,50 €"[39m
+2026-10-09T13:42:11.1130000Z     Received: [31m"€1,234.50"[39m
+2026-10-09T13:42:11.1530000Z 
+2026-10-09T13:42:11.2300000Z     [0m [90m 40 |[39m   it([32m'formats EUR amounts with the customer locale'[39m[33m,[39m () [33m=>[39m {
+2026-10-09T13:42:11.3440000Z      [90m 41 |[39m     [36mconst[39m invoice [33m=[39m makeInvoice({ total[33m:[39m [35m1234.5[39m[33m,[39m currency[33m:[39m [32m'EUR'[39m[33m,[39m locale[33m:[39m [32m'de-DE'[39m })[33m;[39m
+2026-10-09T13:42:11.4950000Z     [31m[1m>[22m[39m[90m 42 |[39m     expect(formatTotal(invoice))[33m.[39mtoBe([32m'1.234,50 €'[39m)[33m;[39m
+2026-10-09T13:42:11.6830000Z      [90m    |[39m                                 [31m[1m^[22m[39m
+2026-10-09T13:42:11.9080000Z      [90m 43 |[39m   })[33m;[39m[0m
+2026-10-09T13:42:11.9110000Z 
+2026-10-09T13:42:11.9510000Z       [2mat Object.<anonymous> ([22msrc/billing/__tests__/invoice.test.ts[2m:42:33)[22m
+2026-10-09T13:42:12.0280000Z       at Promise.then.completed (node_modules/jest-circus/build/utils.js:298:28)
+2026-10-09T13:42:12.1420000Z       at new Promise (<anonymous>)
+2026-10-09T13:42:12.2930000Z       at callAsyncCircusFn (node_modules/jest-circus/build/utils.js:231:10)
+2026-10-09T13:42:12.4810000Z       at _callCircusTest (node_modules/jest-circus/build/run.js:316:40)
+2026-10-09T13:42:12.7060000Z       at processTicksAndRejections (node:internal/process/task_queues:95:5)
+2026-10-09T13:42:12.7090000Z       at _runTest (node_modules/jest-circus/build/run.js:252:3)
+2026-10-09T13:42:12.7490000Z       at _runTestsForDescribeBlock (node_modules/jest-circus/build/run.js:126:9)
+2026-10-09T13:42:12.8260000Z       at run (node_modules/jest-circus/build/run.js:71:3)
+2026-10-09T13:42:12.9400000Z 
+2026-10-09T13:42:13.0910000Z [1mTest Suites: [22m[1m[31m1 failed[39m[22m, [1m[32m2 passed[39m[22m, 3 total
+2026-10-09T13:42:13.2790000Z [1mTests:       [22m[1m[31m1 failed[39m[22m, [1m[32m23 passed[39m[22m, 24 total
+2026-10-09T13:42:13.5040000Z [1mSnapshots:   [22m0 total
+2026-10-09T13:42:13.5070000Z [1mTime:[22m        3.912 s
+2026-10-09T13:42:13.5470000Z [2mRan all test suites[22m[2m.[22m
+2026-10-09T13:42:13.6240000Z ##[error]Process completed with exit code 1.

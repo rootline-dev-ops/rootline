@@ -1,0 +1,14 @@
+go: downloading github.com/stretchr/testify v1.10.0
+go: downloading github.com/google/go-cmp v0.7.0
+go: downloading gopkg.in/yaml.v3 v3.0.1
+ok  	github.com/acme-labs/ratelimit/internal/clock	0.004s
+?   	github.com/acme-labs/ratelimit/cmd/ratelimitd	[no test files]
+--- FAIL: TestTokenBucket_Refill (0.00s)
+    bucket_test.go:47: after 1s refill: got 4 tokens, want 5
+--- FAIL: TestTokenBucket_Burst (0.00s)
+    bucket_test.go:71: Allow() = false on request 10, want true (burst=10)
+FAIL
+FAIL	github.com/acme-labs/ratelimit/internal/bucket	0.011s
+ok  	github.com/acme-labs/ratelimit/internal/store	0.019s
+FAIL
+Error: Process completed with exit code 1.

@@ -1,0 +1,124 @@
+﻿2026-10-09T13:42:07.1230000Z ##[group]Runner Image Provisioner
+2026-10-09T13:42:07.1630000Z Hosted Compute Agent
+2026-10-09T13:42:07.2400000Z Version: 20260922.401
+2026-10-09T13:42:07.3540000Z ##[endgroup]
+2026-10-09T13:42:07.5050000Z ##[group]Operating System
+2026-10-09T13:42:07.6930000Z Ubuntu
+2026-10-09T13:42:07.9180000Z 24.04.3
+2026-10-09T13:42:07.9210000Z LTS
+2026-10-09T13:42:07.9610000Z ##[endgroup]
+2026-10-09T13:42:08.0380000Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T13:42:08.1520000Z Contents: read
+2026-10-09T13:42:08.3030000Z Metadata: read
+2026-10-09T13:42:08.4910000Z ##[endgroup]
+2026-10-09T13:42:08.7160000Z Secret source: Actions
+2026-10-09T13:42:08.7190000Z Prepare workflow directory
+2026-10-09T13:42:08.7590000Z Prepare all required actions
+2026-10-09T13:42:08.8360000Z Getting action download info
+2026-10-09T13:42:08.9500000Z Download action repository 'actions/checkout@v4' (SHA:11bd71901bbe5b1630ceea73d27597364c9af683)
+2026-10-09T13:42:09.1010000Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-09T13:42:09.2890000Z Complete job name: test (3.12)
+2026-10-09T13:42:09.5140000Z ##[group]Run actions/checkout@v4
+2026-10-09T13:42:09.5170000Z with:
+2026-10-09T13:42:09.5570000Z   repository: acme-labs/invoicer
+2026-10-09T13:42:09.6340000Z   token: ***
+2026-10-09T13:42:09.7480000Z   ssh-strict: true
+2026-10-09T13:42:09.8990000Z   persist-credentials: true
+2026-10-09T13:42:10.0870000Z   clean: true
+2026-10-09T13:42:10.3120000Z   fetch-depth: 1
+2026-10-09T13:42:10.3150000Z ##[endgroup]
+2026-10-09T13:42:10.3550000Z Syncing repository: acme-labs/invoicer
+2026-10-09T13:42:10.4320000Z ##[group]Getting Git version info
+2026-10-09T13:42:10.5460000Z Working directory is '/home/runner/work/invoicer/invoicer'
+2026-10-09T13:42:10.6970000Z [command]/usr/bin/git version
+2026-10-09T13:42:10.8850000Z git version 2.51.0
+2026-10-09T13:42:11.1100000Z ##[endgroup]
+2026-10-09T13:42:11.1130000Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4f2a9c1e7b3d5a8f6e0c2b9d1a7e3f5c8b0d2e4a:refs/remotes/pull/212/merge
+2026-10-09T13:42:11.1530000Z remote: Enumerating objects: 143, done.
+2026-10-09T13:42:11.2300000Z remote: Counting objects: 100% (143/143), done.
+2026-10-09T13:42:11.3440000Z remote: Compressing objects: 100% (118/118), done.
+2026-10-09T13:42:11.4950000Z remote: Total 143 (delta 21), reused 77 (delta 9), pack-reused 0 (from 0)
+2026-10-09T13:42:11.6830000Z Receiving objects: 100% (143/143), 211.40 KiB | 4.70 MiB/s, done.
+2026-10-09T13:42:11.9080000Z Resolving deltas: 100% (21/21), done.
+2026-10-09T13:42:11.9110000Z ##[group]Run actions/setup-python@v5
+2026-10-09T13:42:11.9510000Z with:
+2026-10-09T13:42:12.0280000Z   python-version: 3.12
+2026-10-09T13:42:12.1420000Z   cache: pip
+2026-10-09T13:42:12.2930000Z ##[endgroup]
+2026-10-09T13:42:12.4810000Z Installed versions
+2026-10-09T13:42:12.7060000Z Successfully set up CPython (3.12.11)
+2026-10-09T13:42:12.7090000Z ##[group]Run pip install -e ".[test]"
+2026-10-09T13:42:12.7490000Z pip install -e ".[test]"
+2026-10-09T13:42:12.8260000Z shell: /usr/bin/bash -e {0}
+2026-10-09T13:42:12.9400000Z env:
+2026-10-09T13:42:13.0910000Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.11/x64
+2026-10-09T13:42:13.2790000Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.11/x64/lib
+2026-10-09T13:42:13.5040000Z ##[endgroup]
+2026-10-09T13:42:13.5070000Z Obtaining file:///home/runner/work/invoicer/invoicer
+2026-10-09T13:42:13.5470000Z   Installing build dependencies: started
+2026-10-09T13:42:13.6240000Z   Installing build dependencies: finished with status 'done'
+2026-10-09T13:42:13.7380000Z Collecting babel>=2.14 (from invoicer==0.4.0)
+2026-10-09T13:42:13.8890000Z   Downloading babel-2.17.0-py3-none-any.whl.metadata (2.0 kB)
+2026-10-09T13:42:14.0770000Z Collecting pydantic>=2.7 (from invoicer==0.4.0)
+2026-10-09T13:42:14.3020000Z   Downloading pydantic-2.11.9-py3-none-any.whl.metadata (68 kB)
+2026-10-09T13:42:14.3050000Z Collecting pytest>=8 (from invoicer==0.4.0)
+2026-10-09T13:42:14.3450000Z   Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-10-09T13:42:14.4220000Z Collecting pytest-cov (from invoicer==0.4.0)
+2026-10-09T13:42:14.5360000Z   Downloading pytest_cov-7.0.0-py3-none-any.whl.metadata (31 kB)
+2026-10-09T13:42:14.6870000Z Downloading babel-2.17.0-py3-none-any.whl (10.2 MB)
+2026-10-09T13:42:14.8750000Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 98.4 MB/s eta 0:00:00
+2026-10-09T13:42:15.1000000Z Downloading pydantic-2.11.9-py3-none-any.whl (444 kB)
+2026-10-09T13:42:15.1030000Z Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-10-09T13:42:15.1430000Z Installing collected packages: pytest, pydantic, babel, invoicer
+2026-10-09T13:42:15.2200000Z Successfully installed babel-2.17.0 invoicer-0.4.0 pydantic-2.11.9 pytest-8.4.2 pytest-cov-7.0.0
+2026-10-09T13:42:15.3340000Z ##[group]Run pytest -q --maxfail=5
+2026-10-09T13:42:15.4850000Z pytest -q --maxfail=5
+2026-10-09T13:42:15.6730000Z shell: /usr/bin/bash -e {0}
+2026-10-09T13:42:15.8980000Z env:
+2026-10-09T13:42:15.9010000Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.11/x64
+2026-10-09T13:42:15.9410000Z   INVOICER_DB_URL: postgresql://ci:s3cr3t-ci-pass@localhost:5432/invoicer
+2026-10-09T13:42:16.0180000Z ##[endgroup]
+2026-10-09T13:42:16.1320000Z DEBUG config loaded: {'stripe_api_key': 'sk_test_EXAMPLExxxxxxxxxxxxxxxx', 'region': 'eu-central-1'}
+2026-10-09T13:42:16.2830000Z [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m                                                     [100%]
+2026-10-09T13:42:16.4710000Z =================================== FAILURES ===================================
+2026-10-09T13:42:16.6960000Z [31m[1m__________________________ test_format_total_de_locale __________________________[0m
+2026-10-09T13:42:16.6990000Z 
+2026-10-09T13:42:16.7390000Z     def test_format_total_de_locale():
+2026-10-09T13:42:16.8160000Z         invoice = make_invoice(lines=[("Consulting", Decimal("1234.5"))], currency="EUR", locale="de_DE")
+2026-10-09T13:42:16.9300000Z >       assert format_total(invoice) == "1.234,50\xa0€"
+2026-10-09T13:42:17.0810000Z E       AssertionError: assert '€1,234.50' == '1.234,50\xa0€'
+2026-10-09T13:42:17.2690000Z E         
+2026-10-09T13:42:17.4940000Z E         - 1.234,50 €
+2026-10-09T13:42:17.4970000Z E         + €1,234.50
+2026-10-09T13:42:17.5370000Z 
+2026-10-09T13:42:17.6140000Z tests/test_format.py:18: AssertionError
+2026-10-09T13:42:17.7280000Z [31m[1m_________________________ test_format_total_tr_locale __________________________[0m
+2026-10-09T13:42:17.8790000Z 
+2026-10-09T13:42:18.0670000Z     def test_format_total_tr_locale():
+2026-10-09T13:42:18.2920000Z         invoice = make_invoice(lines=[("Danışmanlık", Decimal("99.9"))], currency="TRY", locale="tr_TR")
+2026-10-09T13:42:18.2950000Z >       assert format_total(invoice) == "₺99,90"
+2026-10-09T13:42:18.3350000Z E       AssertionError: assert 'TRY99.90' == '₺99,90'
+2026-10-09T13:42:18.4120000Z E         
+2026-10-09T13:42:18.5260000Z E         - ₺99,90
+2026-10-09T13:42:18.6770000Z E         + TRY99.90
+2026-10-09T13:42:18.8650000Z 
+2026-10-09T13:42:19.0900000Z tests/test_format.py:25: AssertionError
+2026-10-09T13:42:19.0930000Z =========================== short test summary info ============================
+2026-10-09T13:42:19.1330000Z FAILED tests/test_format.py::test_format_total_de_locale - AssertionError: assert '€1,234.50' == '1.234,50\xa0€'
+2026-10-09T13:42:19.2100000Z FAILED tests/test_format.py::test_format_total_tr_locale - AssertionError: assert 'TRY99.90' == '₺99,90'
+2026-10-09T13:42:19.3240000Z [31m========================= [1m2 failed[0m, [32m7 passed[0m[31m in 0.41s[0m[31m ==========================[0m
+2026-10-09T13:42:19.4750000Z ##[error]Process completed with exit code 1.
+2026-10-09T13:42:19.6630000Z ##[group]Run actions/upload-artifact@v4
+2026-10-09T13:42:19.8880000Z with:
+2026-10-09T13:42:19.8910000Z   name: coverage
+2026-10-09T13:42:19.9310000Z   path: coverage.xml
+2026-10-09T13:42:20.0080000Z ##[endgroup]
+2026-10-09T13:42:20.1220000Z ##[warning]No files were found with the provided path: coverage.xml. No artifacts will be uploaded.
+2026-10-09T13:42:20.2730000Z Post job cleanup.
+2026-10-09T13:42:20.4610000Z [command]/usr/bin/git version
+2026-10-09T13:42:20.6860000Z git version 2.51.0
+2026-10-09T13:42:20.6890000Z Temporarily overriding HOME='/home/runner/work/_temp/7c1f' before making global git config changes
+2026-10-09T13:42:20.7290000Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T13:42:20.8060000Z http.https://github.com/.extraheader
+2026-10-09T13:42:20.9200000Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T13:42:21.0710000Z Cleaning up orphan processes
